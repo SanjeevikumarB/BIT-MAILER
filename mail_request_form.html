@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail Request Form</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/dashboard.js" defer></script>
+</head>
+
+<body class="light-theme">
+    <div class="header">
+        <div class="logo">BIT-Mailer</div>
+        <div class="user-info">
+            <div id="user-icon" class="user-icon"></div>
+            <span id="user-name"></span>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <button class="logout-btn" onclick="signOutUser()">Logout</button>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="menu-title">Resources</div>
+            <div class="menu-item" onclick="goToMailRequest()">Mail Request Form</div>
+        </div>
+        <div class="content">
+            <div class="form-container">
+                <h2>Mail Request Form</h2>
+                <form id="mail-request-form">
+                    <label for="subject">Mail Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="content">Content</label>
+                    <textarea id="content" name="content" rows="4" required></textarea>
+
+                    <label for="to">To</label>
+                    <input type="email" id="to" name="to" required>
+
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+
+                    <div class="time-fields">
+                        <div>
+                            <label for="from-time">From Time</label>
+                            <input type="time" id="from-time" name="from-time" required>
+                        </div>
+                        <div>
+                            <label for="to-time">To Time</label>
+                            <input type="time" id="to-time" name="to-time" required>
+                        </div>
+                    </div>
+
+                    <label for="department">Department</label>
+                    <select id="department" name="department" required>
+                        <option value="cse">CSE</option>
+                        <option value="ece">ECE</option>
+                        <option value="mech">Mechanical</option>
+                        <option value="civil">Civil</option>
+                    </select>
+
+                    <label for="year">Year</label>
+                    <select id="year" name="year" required>
+                        <option value="1st">1st Year</option>
+                        <option value="2nd">2nd Year</option>
+                        <option value="3rd">3rd Year</option>
+                        <option value="4th">4th Year</option>
+                    </select>
+
+                    <div class="form-actions">
+                        <button type="button" class="back-btn" onclick="window.location.href='dashboard.html'">clear</button>
+                        <button type="submit" class="submit-btn">Submit</button>
+                        <button type="button" class="new-form-btn" onclick="openNewForm()">New Form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // On page load, populate user info and handle theme
+        window.onload = () => {
+            const userDisplayName = localStorage.getItem('userDisplayName');
+            const userIcon = localStorage.getItem('userIcon');
+
+            if (userDisplayName && userIcon) {
+                document.getElementById('user-name').textContent = userDisplayName;
+                document.getElementById('user-icon').textContent = userIcon;
+            } else {
+                window.location.href = '/index.html';
+            }
+        };
+        // Function to sign out the user
+        window.signOutUser = () => {
+            signOut(auth).then(() => {
+                localStorage.clear();
+                window.location.href = '/index.html';
+            }).catch((error) => {
+                console.error('Error signing out:', error);
+            });
+        };
+
+        function openNewForm() {
+            document.getElementById('mail-request-form').reset();
+        }
+        function updateThemeIcon() {
+        const body = document.body;
+        const themeToggleButton = document.querySelector('.theme-toggle');
+        if (body.classList.contains('dark-theme')) {
+            themeToggleButton.textContent = '🌞'; // Sun icon for light theme
+        } else {
+            themeToggleButton.textContent = '🌙'; // Moon icon for dark theme
+        }
+        }
+
+        // Function to toggle between light and dark themes
+        window.toggleTheme = () => {
+            const body = document.body;
+            body.classList.toggle('light-theme');
+            body.classList.toggle('dark-theme');
+            updateThemeIcon();
+        };
+        
+        // Reset form function
+        const resetForm = () => {
+            document.getElementById('mail-request-form').reset();
+        };
+
+        document.querySelector('.new-form-btn').addEventListener('click', resetForm);
+
+        document.getElementById('mail-request-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form values
+    const subject = document.getElementById('subject').value;
+    const content = document.getElementById('content').value;
+    const to = document.getElementById('to').value;
+    const date = document.getElementById('date').value;
+    const fromTime = document.getElementById('from-time').value;
+    const toTime = document.getElementById('to-time').value;
+    const department = document.getElementById('department').value;
+    const year = document.getElementById('year').value;
+
+    // Create an object to store form data
+    const formData = {
+        subject,
+        content,
+        to,
+        date,
+        fromTime,
+        toTime,
+        department,
+        year
+    };
+
+    // Store the form data in local storage
+    let formSubmissions = JSON.parse(localStorage.getItem('formSubmissions')) || [];
+    formSubmissions.push(formData);
+    localStorage.setItem('formSubmissions', JSON.stringify(formSubmissions));
+
+    // Redirect to the dashboard
+    window.location.href = '/dashboard.html';
+});
+
+
+    </script>
+</body>
+
+</html>

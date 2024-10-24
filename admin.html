@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script type="module" src="js/admin.js" defer></script>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <ul class="nav">
+                <li><a href="#" onclick="showPendingForms()">Pending Forms</a></li>
+                <li><a href="#" onclick="showAcceptedForms()">Accepted Forms</a></li>
+                <li><a href="#" onclick="showRejectedForms()">Rejected Forms</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div id="pending-forms-section">
+                <h3>Pending Forms</h3>
+                <div class="form-list" id="pending-forms-list">
+                </div>
+            </div>
+
+            <div id="accepted-forms-section" style="display: none;">
+                <h3>Accepted Forms</h3>
+                <div class="form-list" id="accepted-forms-list">
+                </div>
+            </div>
+
+            <div id="rejected-forms-section" style="display: none;">
+                <h3>Rejected Forms</h3>
+                <div class="form-list" id="rejected-forms-list">
+                </div>
+            </div>
+
+            <div id="rejection-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeRejectionModal()">&times;</span>
+                    <h3>Rejection Reason</h3>
+                    <textarea id="rejection-reason" placeholder="Enter reason for rejection..."></textarea>
+                    <button class="submit-reason" onclick="submitRejectionReason()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

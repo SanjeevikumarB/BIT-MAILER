@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script type="module" src="js/dashboard.js" defer></script>
+</head>
+<body class="light-theme">
+    <div class="header">
+        <div class="logo">BIT-Mailer</div>
+        <div class="user-info">
+            <div id="user-icon" class="user-icon"></div>
+            <span id="user-name"></span>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <button class="logout-btn" onclick="signOutUser()">Logout</button>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="menu-title">Resources</div>
+            <div class="menu-item" onclick="goToMailRequest()">Mail Request Form</div>
+        </div>
+        <div class="content">
+            <h2>Welcome to the Dashboard</h2>
+            <div class="submitted-forms-container" id="submitted-forms-container">
+                <h3>Submitted Mail Requests</h3>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="form-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Form Details</h2>
+            <div id="form-details"></div>
+        </div>
+    </div>
+</body>
+</html>
